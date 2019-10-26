@@ -1,0 +1,347 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>5. 最长回文字串 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="../" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2" data-path="LongestPalindromicSubstring.html">
+            
+                <a href="LongestPalindromicSubstring.html">
+            
+                    
+                    5. 最长回文字串
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >5. 最长回文字串</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <p><img src="https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LrrEWl8BTXDnZp0laOP%2F-LrrGj7zqA-hkThkk982%2F-LrrJeuGkf3NbvBjC7u_%2F%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202019-10-23%20%E4%B8%8B%E5%8D%882.33.34.png?alt=media&amp;token=b85edd09-ea71-431d-9d59-0fbc259b67a2" alt="img"></p>
+<p>Enter a caption for this image (optional)</p>
+<p>&#x200C;</p>
+<p>&#x9996;&#x5148;&#xFF0C;&#x56DE;&#x6587;&#x6307;&#x7684;&#x662F;&#x6B63;&#x5E8F;&#x5012;&#x5E8F;&#x90FD;&#x76F8;&#x540C;&#x7684;&#x5B57;&#x7B26;&#x5E8F;&#x5217;&#x3002;&#x5728;&#x6B64;&#x6211;&#x4EEC;&#x5C1D;&#x8BD5;&#x7528;&#x4E09;&#x79CD;&#x65B9;&#x6CD5;&#x89E3;&#x51B3;&#x6B64;&#x9898;&#xFF1A;DP&#xFF0C;ExpandAroundCenter&#x548C;Manacher&#x3002;</p>
+<p>&#x200C;</p>
+<h1 id="dp">DP</h1>
+<p>&#x200C;</p>
+<p>DP&#x662F;&#x89E3;&#x51B3;&#x6B64;&#x9898;&#x7684;&#x4E00;&#x79CD;&#x5E38;&#x89C4;&#x601D;&#x8DEF;&#x3002;&#x6839;&#x636E;&#x56DE;&#x6587;&#x7684;&#x5B9A;&#x4E49;&#x53EF;&#x77E5;&#xFF0C;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32; SijSij      S<em>{ij}<math><semantics><mrow><msub><mi>S</mi><mrow><mi>i</mi><mi>j</mi></mrow>&lt;/msub&gt;&lt;/mrow&gt;<annotation encoding="application/x-tex">S</annotation></msub></mrow></semantics></math></em>{ij}&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;Sij&#x200B; &#x662F;&#x56DE;&#x6587;&#x7684;&#x6761;&#x4EF6;&#x4E3A;&#xFF1A;</p>
+<p>Sij={true=substring Si+1,j&#x2212;1 is palindrome &amp;&amp; Si==Sjfalse=otherwiseSij={true=substring Si+1,j&#x2212;1 is palindrome &amp;&amp; Si==Sjfalse=otherwise</p>
+<p>&#x200C;</p>
+<p>&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#x8FD9;&#x662F;&#x4E00;&#x4E2A;bool&#x7C7B;&#x578B;&#x7684;&#x72B6;&#x6001;&#x8F6C;&#x79FB;&#x77E9;&#x9635;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x5982;&#x679C;bab &#x662F;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#xFF0C;&#x90A3;&#x4E48;ababa &#x80AF;&#x5B9A;&#x4E5F;&#x662F;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#xFF0C;&#x56E0;&#x4E3A; S1==a==S5S1==a==S5      S_1 = =a == S_5<math><semantics><mrow><msub><mi>S</mi><mn>1</mn></msub><mo>=</mo><mo>=</mo><mi>a</mi><mo>=</mo><mo>=</mo><msub><mi>S</mi><mn>5</mn></msub></mrow><annotation encoding="application/x-tex">S_1 = =a == S_5</annotation></semantics></math>S1&#x200B;==a==S5&#x200B; &#x4E14;bab &#x662F;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#x3002;&#x4E3A;&#x4E86;&#x8BB0;&#x5F55;&#x5B50;&#x4E32;&#x662F;&#x5426;&#x4E3A;&#x56DE;&#x6587;&#xFF0C;&#x6211;&#x4EEC;&#x5229;&#x7528;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;dp[n][n] &#x6765;&#x8BB0;&#x5F55;&#x5B50;&#x4E32;&#x662F;&#x5426;&#x4F1A;&#x56DE;&#x6587;&#x3002;&#x6574;&#x4E2A;DP&#x5BFB;&#x627E;&#x601D;&#x8DEF;&#x53EF;&#x4EE5;&#x770B;&#x6210;&#x5148;&#x628A;&#x5B50;&#x4E32;&#x957F;&#x5EA6;&#x4E3A;1&#x6216;2&#x7684;&#x521D;&#x59CB;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#x627E;&#x5230;&#xFF0C;&#x7136;&#x540E;&#x4ECE;&#x5B50;&#x4E32;&#x957F;&#x5EA6;&#x4E3A;3&#x5F00;&#x59CB;&#x5229;&#x7528;&#x72B6;&#x6001;&#x8F6C;&#x79FB;&#x65B9;&#x7A0B;&#x5BFB;&#x627E;&#x3002;&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x548C;&#x7A7A;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x5747;&#x4E3A; O(n2)O(n2)      O(n^2)<math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math>O(n2) &#xFF0C;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p>DP</p>
+<p>C</p>
+<p>Add file</p>
+<p>C </p>
+<p>exit: &#x2318;&#x21A9;</p>
+<pre><code>char* longestPalindrome(char* s) {
+    int max_count = 1, len = strlen(s), start = 0;
+    if(len &lt; 2)
+        return s;
+    int dp[len][len]; //&#x8BB0;&#x5F55;&#x5B50;&#x4E32;&#x662F;&#x5426;&#x4E3A;&#x56DE;&#x6587;
+    memset(dp, 0, sizeof(dp));
+
+    //&#x5148;&#x521D;&#x59CB;&#x5316;dp,&#x5355;&#x4E2A;&#x5B57;&#x7B26;&#x548C;&#x4E00;&#x5BF9;&#x76F8;&#x7B49;&#x7684;&#x5B57;&#x7B26;&#x90FD;&#x662F;&#x56DE;&#x6587;&#x3002;&#x76F8;&#x5F53;&#x4E8E;&#x5148;&#x628A;&#x5B50;&#x4E32;&#x957F;&#x5EA6;&#x4E3A;1&#x548C;2&#x7684;&#x56DE;&#x6587;&#x627E;&#x5230;&#x3002;
+    for(int i=0; i&lt;len; i++)
+    {
+        dp[i][i] = 1;
+        if(s[i+1] &amp;&amp; s[i] == s[i+1])
+        {
+            dp[i][i+1] = 1;
+            max_count = 2;
+            start = i;
+        }
+    }
+
+    //&#x4ECE;&#x957F;&#x5EA6;&#x4E3A;3&#x7684;&#x5B50;&#x4E32;&#x5F00;&#x59CB;&#x5BFB;&#x627E;
+    for(int sublen=3; sublen&lt;=len; sublen++)
+        for(int i=0; i&lt;=len-sublen; i++)
+        {
+            int j = i+sublen-1;
+            if(dp[i+1][j-1] &amp;&amp; s[i] == s[j])
+            {
+                dp[i][j] = 1;
+                if(max_count &lt; sublen)
+                {
+                    max_count = sublen;
+                    start = i;
+                }
+            }
+        }
+    char *res = (char *)malloc(max_count+1);
+    memcpy(res, s+start, max_count);
+    res[max_count] = 0;
+    return res;
+}
+</code></pre><p>&#x200C;</p>
+<h1 id="expandaroundcenter">ExpandAroundCenter</h1>
+<p>&#x200C;</p>
+<p>&#x5B9E;&#x9645;&#x4E0A;&#xFF0C;&#x6211;&#x4EEC;&#x5E76;&#x4E0D;&#x9700;&#x8981;&#x7528;&#x4E00;&#x4E2A;&#x8F85;&#x52A9;&#x6570;&#x7EC4;dp&#x6765;&#x8BB0;&#x5F55;&#x5B50;&#x4E32;&#x662F;&#x5426;&#x4E3A;&#x56DE;&#x6587;&#xFF0C;&#x800C;&#x662F;&#x53EF;&#x4EE5;&#x4ECE;&#x6700;&#x77ED;&#x7684;&#x5B50;&#x4E32;&#x5F00;&#x59CB;&#x5BFB;&#x627E;&#x3002;&#x5176;&#x6838;&#x5FC3;&#x601D;&#x60F3;&#x662F;&#x627E;&#x5230;&#x4E00;&#x4E2A;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#x7684;&#x4E2D;&#x5FC3;&#x70B9;&#xFF0C;&#x7136;&#x540E;&#x4E0D;&#x65AD;&#x5411;&#x4E24;&#x8FB9;&#x6269;&#x5C55;&#x76F4;&#x5230;&#x4E24;&#x8FB9;&#x5B57;&#x7B26;&#x4E0D;&#x76F8;&#x540C;&#x3002;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#x8BE5;&#x4E2D;&#x5FC3;&#x70B9;&#x53EF;&#x80FD;&#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#xFF0C;&#x4E5F;&#x53EF;&#x80FD;&#x662F;&#x4E24;&#x4E2A;&#x5B57;&#x7B26;&#xFF0C;&#x4F8B;&#x5982;aba &#x7684;&#x4E2D;&#x5FC3;&#x70B9;&#x662F;a, abba &#x7684;&#x4E2D;&#x5FC3;&#x70B9;&#x5219;&#x662F;bb&#x3002;&#x5982;&#x6B64;&#x5219;&#x628A;&#x7A7A;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x964D;&#x4E3A; O(n)O(n)      O(n)<math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math>O(n) &#xFF0C;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p>ExpandAroundCenter</p>
+<p>C</p>
+<p>Add file</p>
+<p>C </p>
+<p>exit: &#x2318;&#x21A9;</p>
+<pre><code>void expandAroundCenter(char *s, int left, int right, int len, int *start, int *max_count)
+{
+    while(left&gt;=0 &amp;&amp; right&lt;=len &amp;&amp; s[left] == s[right])
+    {
+        left--;
+        right++;
+    }
+    if(*max_count &lt; right-left-1)
+    {
+        *max_count = right-left-1;
+        *start = left+1;
+    }
+}
+
+
+char* longestPalindrome(char* s) {
+    int len = strlen(s), start = 0, max_count =0;
+    if(len &lt; 2)
+        return s;
+
+
+    for(int i=0; i&lt;len; i++)
+    {
+        expandAroundCenter(s, i, i, len, &amp;start, &amp;max_count);
+        expandAroundCenter(s, i, i+1, len, &amp;start, &amp;max_count);
+    }
+
+    char *res = (char *)malloc(max_count+1);
+    memcpy(res, s+start, max_count);
+    res[max_count] = 0;
+    return res;
+}
+</code></pre><p>&#x200C;</p>
+<h1 id="manachers-algorithm">Manacher&apos;s Algorithm</h1>
+<p>&#x200C;</p>
+<p>Manacher&#x7B97;&#x6CD5;&#x5B9E;&#x9645;&#x4E0A;&#x53EF;&#x4EE5;&#x770B;&#x505A;&#x662F;ExpandAroundCenter&#x548C;DP&#x65B9;&#x6CD5;&#x7684;&#x7ED3;&#x5408;&#x4E0E;&#x4F18;&#x5316;&#xFF1A;&#x5B83;&#x57FA;&#x4E8E;ExpandAroundCenter&#x7684;&#x601D;&#x60F3;&#xFF0C;&#x5148;&#x627E;&#x5230;&#x6BCF;&#x4E2A;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#x7684;&#x4E2D;&#x5FC3;&#x70B9;&#xFF1B;&#x540C;&#x65F6;&#x5229;&#x7528;DP&#x7684;&#x601D;&#x60F3;&#xFF0C;<strong>&#x501F;&#x52A9;&#x5F53;&#x524D;&#x5224;&#x65AD;&#x7684;&#x5B50;&#x4E32;&#x7684;&#x5BF9;&#x79F0;&#x4E32;&#xFF08;&#x80AF;&#x5B9A;&#x88AB;&#x641C;&#x7D22;&#x8FC7;&#xFF09;&#x6765;&#x5224;&#x65AD;&#x5F53;&#x524D;&#x5B50;&#x4E32;&#x662F;&#x5426;&#x4E3A;&#x56DE;&#x6587;&#x5B50;&#x4E32;</strong>&#x3002;&#x5229;&#x7528;&#x5BF9;&#x79F0;&#x5B50;&#x4E32;&#x7684;&#x4FE1;&#x606F;&#x662F;Manacher&#x7B97;&#x6CD5;&#x7684;&#x5173;&#x952E;&#xFF0C;&#x5176;&#x4E2D;&#x53EF;&#x4EE5;&#x5206;&#x4E3A;&#x5982;&#x4E0B;&#x4E24;&#x79CD;&#x60C5;&#x51B5;&#xFF1A;</p>
+<p><img src="https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LrrEWl8BTXDnZp0laOP%2F-LrxqLh8b5cZoh1OSYLX%2F-Lry41w5KuMb1sN1hokM%2Fmanacher_algorithm.png?alt=media&amp;token=571c9550-735d-4d2a-9a5c-d6ec340e60b0" alt="img"></p>
+<p>Enter a caption for this image (optional)</p>
+<p><img src="https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LrrEWl8BTXDnZp0laOP%2F-LrxqLh8b5cZoh1OSYLX%2F-Lry41w6z8PCQ0Ex4jYV%2Fmanacher_algorithm2.png?alt=media&amp;token=45899d09-e695-4b42-b1f1-83dd840db1fd" alt="img"></p>
+<p>Enter a caption for this image (optional)</p>
+<p>&#x200C;</p>
+<p>&#x5728;&#x6574;&#x4E2A;&#x5FAA;&#x73AF;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x4E0D;&#x65AD;&#x66F4;&#x65B0;&#x4E24;&#x4E2A;&#x53D8;&#x91CF;&#xFF1A;</p>
+<p>&#x200C;</p>
+<ul>
+<li><code>pivot</code> &#xFF1A;&#x5F53;&#x524D;&#x68C0;&#x6D4B;&#x5230;&#x7684;&#x6700;&#x5927;&#x7684;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#x7684;&#x4E2D;&#x5FC3;&#x70B9;&#x3002;</li>
+<li><code>max_right</code> &#xFF1A;&#x5F53;&#x524D;&#x68C0;&#x6D4B;&#x5230;&#x7684;&#x6700;&#x5927;&#x7684;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#x7684;&#x53F3;&#x8FB9;&#x754C;&#x70B9;&#x3002;</li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Introduction">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"5. 最长回文字串","level":"1.2","depth":1,"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Leetcode/LongestPalindromicSubstring.md","mtime":"2019-10-26T09:00:51.679Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-10-26T09:01:10.619Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
