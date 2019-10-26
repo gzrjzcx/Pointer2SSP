@@ -14,11 +14,14 @@ script:
   - gitbook build
 
 after_script:
-  - cd _book
-  - git remote add origin https://${REF}
+  - git checkout gh-pages
+  - mkdir tmp
+  - mv * tmp
+  - mv tmp/_book/* .
+  - rm -r tmp
   - git add -A
   - git commit -m "Updated By Travis-CI With Build $TRAVIS_BUILD_NUMBER For Github Pages"
-  - git push --force "https://${TOKEN}@${REF}" src:gh-pages
+  - git push "https://${TOKEN}@${REF}" gh-pages:gh-pages
 
 branches:
   only:
