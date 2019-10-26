@@ -6,6 +6,10 @@ cache: npm
 notifications:
   email: false
 
+install:
+  - npm install -g gitbook-cli
+  - gitbook install
+
 script:
   - gitbook build
 
