@@ -17,8 +17,7 @@ after_script:
   - cd _book
   - git add -A
   - git commit -m "Updated By Travis-CI With Build $TRAVIS_BUILD_NUMBER For Github Pages"
-  - git push --force "https://${TOKEN}@${REF}" src:gh-pages
-  - rm -r _book
+  - git push --force "https://${REF}" src:gh-pages
 
 branches:
   only:
