@@ -13,20 +13,15 @@ install:
 script:
   - gitbook build
 
-after_script:
-  - git checkout gh-pages
-  - mkdir tmp
-  - mv * tmp
-  - mv tmp/_book/* .
-  - rm -r tmp
-  - git add -A
-  - git commit -m "Updated By Travis-CI With Build $TRAVIS_BUILD_NUMBER For Github Pages"
-  - git push "https://${TOKEN}@${REF}" gh-pages:gh-pages
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $TOKEN  # Set in the settings page of your repository, as a secure variable
+  local-dir: ./_book/
+  verbose: true
+  on:
+    branch: src
 
 branches:
   only:
     - src
-
-env:
-  global:
-    - REF=github.com/gzrjzcx/Pointer2SSP.git # 设置 github 地址
