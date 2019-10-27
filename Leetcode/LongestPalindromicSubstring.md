@@ -1,4 +1,4 @@
-![longestPalindromicSubstring](/Users/alex/Desktop/longestPalindromicSubstring.png)
+![longestPalindromicSubstring](../res/Leetcode/longestPalindromicSubstring.png)
 
 首先，**回文指的是正序倒序都相同的字符序列**。在此我们尝试用三种方法解决此题：DP，ExpandAroundCenter和Manacher。
 
@@ -116,9 +116,9 @@ Manacher算法实际上可以看做是ExpandAroundCenter和DP方法的结合与�
 
 
 
-![manacher_algorithm](/Users/alex/Desktop/manacher_algorithm.png)
+![manacher_algorithm](../res/Leetcode/manacher_algorithm.png)
 
-![manacher_algorithm2](/Users/alex/Desktop/manacher_algorithm2.png)
+![manacher_algorithm2](../res/Leetcode/manacher_algorithm2.png)
 
 
 
