@@ -23,8 +23,8 @@
         "shortName": "hellscript"
     },
     "donate": {
-        "wechat": "微信收款的二维码URL",
-        "alipay": "支付宝收款的二维码URL",
+        "wechat": "https://github.com/gzrjzcx/Pointer2SSP/blob/src/res/wechat.JPG",
+        "alipay": "https://github.com/gzrjzcx/Pointer2SSP/blob/src/res/alipay.png",
         "title": "",
         "button": "赏",
         "alipayText": "支付宝打赏",
