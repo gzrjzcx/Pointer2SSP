@@ -203,7 +203,20 @@ char* longestPalindrome(char* s) {
 
 ```
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<div id="gitalk-container"></div>
+var gitalk = new Gitalk({
+  clientID: 'GitHub Application Client ID',
+  clientSecret: 'GitHub Application Client Secret',
+  repo: 'GitHub repo',
+  owner: 'GitHub repo owner',
+  admin: ['GitHub repo owner and collaborators, only these guys can initialize github issues'],
+  id: location.pathname,      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
 
+gitalk.render('gitalk-container')
 
 
 
