@@ -24,7 +24,7 @@
     },
     "donate": {
         "wechat": "../res/wechat.png",
-        "alipay": "https://github.com/gzrjzcx/Pointer2SSP/blob/src/res/alipay.png",
+        "alipay": "../res/alipay.png",
         "title": "",
         "button": "赏",
         "alipayText": "支付宝打赏",

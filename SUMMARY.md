@@ -1,6 +1,6 @@
 # Summary
 
-* [Introduction](README.md)
+* [Introduction](Introduction.md)
 * Leetcode
   * [5. 最长回文子串](Leetcode/LongestPalindromicSubstring.md)
 * Others
