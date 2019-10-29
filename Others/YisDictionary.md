@@ -1,0 +1,1 @@
+Hello guys, this is a test page for various plugins.
