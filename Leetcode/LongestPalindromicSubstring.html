@@ -1,0 +1,515 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>5. 最长回文子串 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-emphasize/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-flexible-alerts/style.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-pageview-count/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-donate/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <span>
+            
+                    
+                    Leetcode
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.2.1" data-path="LongestPalindromicSubstring.html">
+            
+                <a href="LongestPalindromicSubstring.html">
+            
+                    
+                    5. 最长回文子串
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <span>
+            
+                    
+                    Others
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../Others/YisDictionary.html">
+            
+                <a href="../Others/YisDictionary.html">
+            
+                    
+                    1. 小易的字典
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >5. 最长回文子串</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <p><img src="../res/Leetcode/longestPalindromicSubstring.png" alt="longestPalindromicSubstring"></p>
+<p>&#x9996;&#x5148;&#xFF0C;<strong>&#x56DE;&#x6587;&#x6307;&#x7684;&#x662F;&#x6B63;&#x5E8F;&#x5012;&#x5E8F;&#x90FD;&#x76F8;&#x540C;&#x7684;&#x5B57;&#x7B26;&#x5E8F;&#x5217;</strong>&#x3002;&#x5728;&#x6B64;&#x6211;&#x4EEC;&#x5C1D;&#x8BD5;&#x7528;&#x4E09;&#x79CD;&#x65B9;&#x6CD5;&#x89E3;&#x51B3;&#x6B64;&#x9898;&#xFF1A;DP&#xFF0C;ExpandAroundCenter&#x548C;Manacher&#x3002;</p>
+<hr>
+<h1 id="dp">DP</h1>
+<p>DP&#x662F;&#x89E3;&#x51B3;&#x6B64;&#x9898;&#x7684;&#x4E00;&#x79CD;&#x5E38;&#x89C4;&#x601D;&#x8DEF;&#x3002;&#x6839;&#x636E;&#x56DE;&#x6587;&#x7684;&#x5B9A;&#x4E49;&#x53EF;&#x77E5;&#xFF0C;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>S</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">S_{ij}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.05764em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord mathit mtight">i</span><span class="mord mathit mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span>&#x662F;&#x56DE;&#x6587;&#x7684;&#x6761;&#x4EF6;&#x4E3A;&#xFF1A;
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>S</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>=</mo><mrow><mo fence="true">{</mo><mtable><mtr><mtd><mrow><mi>t</mi><mi>r</mi><mi>u</mi><mi>e</mi></mrow></mtd><mtd><mrow><mo>=</mo></mrow></mtd><mtd><mrow><mo>(</mo><mtext><mi mathvariant="normal">s</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">g</mi></mtext><mtext>&#xA0;</mtext><msub><mi>S</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn><mo separator="true">,</mo><mi>j</mi><mo>&#x2212;</mo><mn>1</mn></mrow></msub><mtext>&#xA0;</mtext><mtext><mi mathvariant="normal">i</mi><mi mathvariant="normal">s</mi><mtext>&#xA0;</mtext><mi mathvariant="normal">p</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">e</mi></mtext><mo>)</mo><mtext>&#xA0;</mtext><mtext>&#xA0;</mtext><mi mathvariant="normal">&amp;</mi><mi mathvariant="normal">&amp;</mi><mtext>&#xA0;</mtext><mtext>&#xA0;</mtext><mo>(</mo><msub><mi>S</mi><mi>i</mi></msub><mo>=</mo><mo>=</mo><msub><mi>S</mi><mi>j</mi></msub><mo>)</mo></mrow></mtd></mtr><mtr><mtd><mrow><mi>f</mi><mi>a</mi><mi>l</mi><mi>s</mi><mi>e</mi></mrow></mtd><mtd><mrow><mo>=</mo></mrow></mtd><mtd><mrow><mtext><mi mathvariant="normal">o</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">w</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi></mtext></mrow></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">
+S_{ij} = \begin{cases} 
+true &amp; = &amp; (\text{substring} \ S_{i+1, j-1} \ \text{is palindrome}) \ \ \&amp;\&amp; \ \ (S_i == S_j)\\
+false &amp; = &amp; \text{otherwise}
+\end{cases}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.75em;"></span><span class="strut bottom" style="height:3.0000299999999998em;vertical-align:-1.25003em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.05764em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord mathit mtight">i</span><span class="mord mathit mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mrel">=</span><span class="minner displaystyle textstyle uncramped"><span class="mopen style-wrap reset-textstyle textstyle uncramped" style="top:0em;"><span class="delimsizing size4">{</span></span><span class="mord"><span class="mtable"><span class="col-align-l"><span class="vlist"><span style="top:-0.6819999999999999em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="mord displaystyle textstyle uncramped"><span class="mord mathit">t</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">u</span><span class="mord mathit">e</span></span></span><span style="top:0.7579999999999999em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="mord displaystyle textstyle uncramped"><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">s</span><span class="mord mathit">e</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span><span class="arraycolsep" style="width:1em;"></span><span class="col-align-l"><span class="vlist"><span style="top:-0.6819999999999999em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="mord displaystyle textstyle uncramped"><span class="mrel">=</span></span></span><span style="top:0.7579999999999999em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="mord displaystyle textstyle uncramped"><span class="mrel">=</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist"><span style="top:-0.6819999999999999em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="mord displaystyle textstyle uncramped"><span class="mopen">(</span><span class="mord text displaystyle textstyle uncramped"><span class="mord mathrm">substring</span></span><span class="mord"><span class="mspace">&#xA0;</span><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.05764em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord mathit mtight">i</span><span class="mbin mtight">+</span><span class="mord mathrm mtight">1</span><span class="mpunct mtight">,</span><span class="mord mathit mtight" style="margin-right:0.05724em;">j</span><span class="mbin mtight">&#x2212;</span><span class="mord mathrm mtight">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mord text displaystyle textstyle uncramped"><span class="mspace">&#xA0;</span><span class="mord mathrm">is&#xA0;palindrome</span></span><span class="mclose">)</span><span class="mord mathrm"><span class="mspace">&#xA0;</span><span class="mspace">&#xA0;</span><span class="mord mathrm">&amp;</span></span><span class="mord mathrm">&amp;</span><span class="mopen"><span class="mspace">&#xA0;</span><span class="mspace">&#xA0;</span><span class="mopen">(</span></span><span class="mord"><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.05764em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathit mtight">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mrel">=</span><span class="mrel">=</span><span class="mord"><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.05764em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathit mtight" style="margin-right:0.05724em;">j</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mclose">)</span></span></span><span style="top:0.7579999999999999em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="mord displaystyle textstyle uncramped"><span class="mord text displaystyle textstyle uncramped"><span class="mord mathrm">otherwise</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span><span class="mclose sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span></span></span></p>
+<p>&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#x8FD9;&#x662F;&#x4E00;&#x4E2A;bool&#x7C7B;&#x578B;&#x7684;&#x72B6;&#x6001;&#x8F6C;&#x79FB;&#x77E9;&#x9635;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x5982;&#x679C;<code>bab</code>&#x662F;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#xFF0C;&#x90A3;&#x4E48;<code>ababa</code> &#x80AF;&#x5B9A;&#x4E5F;&#x662F;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#xFF0C;&#x56E0;&#x4E3A; <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>S</mi><mn>1</mn></msub><mo>=</mo><mo>=</mo><mi>a</mi><mo>=</mo><mo>=</mo><msub><mi>S</mi><mn>5</mn></msub></mrow><annotation encoding="application/x-tex">S_1==a==S_5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.05764em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathrm mtight">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mrel">=</span><span class="mrel">=</span><span class="mord mathit">a</span><span class="mrel">=</span><span class="mrel">=</span><span class="mord"><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.05764em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathrm mtight">5</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span>&#x200B; &#x4E14;<code>bab</code>&#x662F;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#x3002;&#x4E3A;&#x4E86;&#x8BB0;&#x5F55;&#x5B50;&#x4E32;&#x662F;&#x5426;&#x4E3A;&#x56DE;&#x6587;&#xFF0C;&#x6211;&#x4EEC;&#x5229;&#x7528;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;<code>dp[n][n]</code>&#x6765;&#x8BB0;&#x5F55;&#x5B50;&#x4E32;&#x662F;&#x5426;&#x4F1A;&#x56DE;&#x6587;&#x3002;<strong>&#x6574;&#x4E2A;DP&#x5BFB;&#x627E;&#x601D;&#x8DEF;&#x53EF;&#x4EE5;&#x770B;&#x6210;&#x5148;&#x628A;&#x5B50;&#x4E32;&#x957F;&#x5EA6;&#x4E3A;1&#x6216;2&#x7684;&#x521D;&#x59CB;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#x627E;&#x5230;&#xFF0C;&#x7136;&#x540E;&#x4ECE;&#x5B50;&#x4E32;&#x957F;&#x5EA6;&#x4E3A;3&#x5F00;&#x59CB;&#x5229;&#x7528;&#x72B6;&#x6001;&#x8F6C;&#x79FB;&#x65B9;&#x7A0B;&#x5BFB;&#x627E;</strong>&#x3002;&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x548C;&#x7A7A;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x5747;&#x4E3A;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>N</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(N^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="msupsub"><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord mathrm mtight">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mclose">)</span></span></span></span>&#xFF0C;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">char</span>* <span class="hljs-title">longestPalindrome</span><span class="hljs-params">(<span class="hljs-keyword">char</span>* s)</span> </span>{
+    <span class="hljs-keyword">int</span> max_count = <span class="hljs-number">1</span>, len = <span class="hljs-built_in">strlen</span>(s), start = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">if</span>(len &lt; <span class="hljs-number">2</span>)
+        <span class="hljs-keyword">return</span> s;
+    <span class="hljs-keyword">int</span> dp[len][len]; <span class="hljs-comment">//&#x8BB0;&#x5F55;&#x5B50;&#x4E32;&#x662F;&#x5426;&#x4E3A;&#x56DE;&#x6587;</span>
+    <span class="hljs-built_in">memset</span>(dp, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span>(dp));
+
+    <span class="hljs-comment">//&#x5148;&#x521D;&#x59CB;&#x5316;dp,&#x5355;&#x4E2A;&#x5B57;&#x7B26;&#x548C;&#x4E00;&#x5BF9;&#x76F8;&#x7B49;&#x7684;&#x5B57;&#x7B26;&#x90FD;&#x662F;&#x56DE;&#x6587;&#x3002;&#x76F8;&#x5F53;&#x4E8E;&#x5148;&#x628A;&#x5B50;&#x4E32;&#x957F;&#x5EA6;&#x4E3A;1&#x548C;2&#x7684;&#x56DE;&#x6587;&#x627E;&#x5230;&#x3002;</span>
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;len; i++)
+    {
+        dp[i][i] = <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">if</span>(s[i+<span class="hljs-number">1</span>] &amp;&amp; s[i] == s[i+<span class="hljs-number">1</span>])
+        {
+            dp[i][i+<span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;
+            max_count = <span class="hljs-number">2</span>;
+            start = i;
+        }
+    }
+
+    <span class="hljs-comment">//&#x4ECE;&#x957F;&#x5EA6;&#x4E3A;3&#x7684;&#x5B50;&#x4E32;&#x5F00;&#x59CB;&#x5BFB;&#x627E;</span>
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> sublen=<span class="hljs-number">3</span>; sublen&lt;=len; sublen++)
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;=len-sublen; i++)
+        {
+            <span class="hljs-keyword">int</span> j = i+sublen<span class="hljs-number">-1</span>;
+            <span class="hljs-keyword">if</span>(dp[i+<span class="hljs-number">1</span>][j<span class="hljs-number">-1</span>] &amp;&amp; s[i] == s[j])
+            {
+                dp[i][j] = <span class="hljs-number">1</span>;
+                <span class="hljs-keyword">if</span>(max_count &lt; sublen)
+                {
+                    max_count = sublen;
+                    start = i;
+                }
+            }
+        }
+    <span class="hljs-keyword">char</span> *res = (<span class="hljs-keyword">char</span> *)<span class="hljs-built_in">malloc</span>(max_count+<span class="hljs-number">1</span>);
+    <span class="hljs-built_in">memcpy</span>(res, s+start, max_count);
+    res[max_count] = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">return</span> res;
+}
+</code></pre>
+<hr>
+<h1 id="expandaroundcenter">ExpandAroundCenter</h1>
+<p>&#x5B9E;&#x9645;&#x4E0A;&#xFF0C;&#x6211;&#x4EEC;&#x5E76;&#x4E0D;&#x9700;&#x8981;&#x7528;&#x4E00;&#x4E2A;&#x8F85;&#x52A9;&#x6570;&#x7EC4;<code>dp[n][n]</code>&#x6765;&#x8BB0;&#x5F55;&#x5B50;&#x4E32;&#x662F;&#x5426;&#x4E3A;&#x56DE;&#x6587;&#xFF0C;&#x800C;&#x662F;&#x53EF;&#x4EE5;&#x4ECE;&#x6700;&#x77ED;&#x7684;&#x5B50;&#x4E32;&#x5F00;&#x59CB;&#x5BFB;&#x627E;&#x3002;&#x5176;&#x6838;&#x5FC3;&#x601D;&#x60F3;&#x662F;<strong>&#x627E;&#x5230;&#x4E00;&#x4E2A;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#x7684;&#x4E2D;&#x5FC3;&#x70B9;&#xFF0C;&#x7136;&#x540E;&#x4E0D;&#x65AD;&#x5411;&#x4E24;&#x8FB9;&#x6269;&#x5C55;&#x76F4;&#x5230;&#x4E24;&#x8FB9;&#x5B57;&#x7B26;&#x4E0D;&#x76F8;&#x540C;</strong>&#x3002;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#x8BE5;&#x4E2D;&#x5FC3;&#x70B9;&#x53EF;&#x80FD;&#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#xFF0C;&#x4E5F;&#x53EF;&#x80FD;&#x662F;&#x4E24;&#x4E2A;&#x5B57;&#x7B26;&#xFF0C;&#x4F8B;&#x5982;<code>aba</code>&#x7684;&#x4E2D;&#x5FC3;&#x70B9;&#x662F;<code>a</code>, <code>abba</code> &#x7684;&#x4E2D;&#x5FC3;&#x70B9;&#x5219;&#x662F;<code>bb</code>&#x3002;&#x5982;&#x6B64;&#x5219;&#x628A;&#x7A7A;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x964D;&#x4E3A; <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>N</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(N)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="mclose">)</span></span></span></span>&#x3002;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">expandAroundCenter</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *s, <span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right, <span class="hljs-keyword">int</span> len, <span class="hljs-keyword">int</span> *start, <span class="hljs-keyword">int</span> *max_count)</span>
+</span>{
+    <span class="hljs-keyword">while</span>(left&gt;=<span class="hljs-number">0</span> &amp;&amp; right&lt;=len &amp;&amp; s[left] == s[right])
+    {
+        left--;
+        right++;
+    }
+    <span class="hljs-keyword">if</span>(*max_count &lt; right-left<span class="hljs-number">-1</span>)
+    {
+        *max_count = right-left<span class="hljs-number">-1</span>;
+        *start = left+<span class="hljs-number">1</span>;
+    }
+}
+
+
+<span class="hljs-function"><span class="hljs-keyword">char</span>* <span class="hljs-title">longestPalindrome</span><span class="hljs-params">(<span class="hljs-keyword">char</span>* s)</span> </span>{
+    <span class="hljs-keyword">int</span> len = <span class="hljs-built_in">strlen</span>(s), start = <span class="hljs-number">0</span>, max_count =<span class="hljs-number">0</span>;
+    <span class="hljs-keyword">if</span>(len &lt; <span class="hljs-number">2</span>)
+        <span class="hljs-keyword">return</span> s;
+
+
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;len; i++)
+    {
+        expandAroundCenter(s, i, i, len, &amp;start, &amp;max_count);
+        expandAroundCenter(s, i, i+<span class="hljs-number">1</span>, len, &amp;start, &amp;max_count);
+    }
+
+    <span class="hljs-keyword">char</span> *res = (<span class="hljs-keyword">char</span> *)<span class="hljs-built_in">malloc</span>(max_count+<span class="hljs-number">1</span>);
+    <span class="hljs-built_in">memcpy</span>(res, s+start, max_count);
+    res[max_count] = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">return</span> res;
+}
+</code></pre>
+<hr>
+<p>&#x200C;</p>
+<h1 id="manachers-algorithm">Manacher&apos;s Algorithm</h1>
+<p>Manacher&#x7B97;&#x6CD5;&#x5B9E;&#x9645;&#x4E0A;&#x53EF;&#x4EE5;&#x770B;&#x505A;&#x662F;ExpandAroundCenter&#x548C;DP&#x65B9;&#x6CD5;&#x7684;&#x7ED3;&#x5408;&#x4E0E;&#x4F18;&#x5316;&#xFF1A;&#x5B83;&#x57FA;&#x4E8E;ExpandAroundCenter&#x7684;&#x601D;&#x60F3;&#xFF0C;&#x5148;&#x627E;&#x5230;&#x6BCF;&#x4E2A;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#x7684;&#x4E2D;&#x5FC3;&#x70B9;&#xFF1B;&#x540C;&#x65F6;&#x5229;&#x7528;DP&#x7684;&#x601D;&#x60F3;&#xFF0C;<strong>&#x501F;&#x52A9;&#x5F53;&#x524D;&#x5224;&#x65AD;&#x7684;&#x5B50;&#x4E32;&#x7684;&#x5BF9;&#x79F0;&#x4E32;&#xFF08;&#x80AF;&#x5B9A;&#x88AB;&#x641C;&#x7D22;&#x8FC7;&#xFF09;&#x6765;&#x5224;&#x65AD;&#x5F53;&#x524D;&#x5B50;&#x4E32;&#x662F;&#x5426;&#x4E3A;&#x56DE;&#x6587;&#x5B50;&#x4E32;</strong>&#x3002;&#x4E0D;&#x9700;&#x8981;&#x989D;&#x5916;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x6765;&#x5229;&#x7528;&#x5BF9;&#x79F0;&#x5B50;&#x4E32;&#x7684;&#x4FE1;&#x606F;&#x662F;Manacher&#x7B97;&#x6CD5;&#x7684;&#x5173;&#x952E;&#xFF0C;&#x5176;&#x4E2D;&#x53EF;&#x4EE5;&#x5206;&#x4E3A;&#x5982;&#x4E0B;&#x4E24;&#x79CD;&#x60C5;&#x51B5;&#xFF1A;</p>
+<p><img src="../res/Leetcode/manacher_algorithm.png" alt="manacher_algorithm"></p>
+<p><img src="../res/Leetcode/manacher_algorithm2.png" alt="manacher_algorithm2"></p>
+<p>&#x5728;&#x6574;&#x4E2A;&#x5FAA;&#x73AF;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x4E0D;&#x65AD;&#x66F4;&#x65B0;&#x4E24;&#x4E2A;&#x53D8;&#x91CF;&#xFF1A;</p>
+<ul>
+<li><code>pivot</code> &#xFF1A;&#x5F53;&#x524D;&#x68C0;&#x6D4B;&#x5230;&#x7684;&#x6700;&#x5927;&#x7684;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#x7684;&#x4E2D;&#x5FC3;&#x70B9;&#x3002;</li>
+<li><code>max_right</code> &#xFF1A;&#x5F53;&#x524D;&#x68C0;&#x6D4B;&#x5230;&#x7684;&#x6700;&#x5927;&#x7684;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#x7684;&#x53F3;&#x8FB9;&#x754C;&#x70B9;&#x3002;</li>
+</ul>
+<p>&#x8FD9;&#x6837;&#x7684;&#x8BDD;&#xFF0C;&#x4FBF;&#x80FD;&#x591F;&#x4FDD;&#x8BC1;<code>pivot</code>&#x662F;&#x5F53;&#x524D;&#x5DF2;&#x77E5;&#x7684;&#x6700;&#x957F;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#x7684;&#x4E2D;&#x5FC3;&#x70B9;&#xFF0C;<code>max_right</code>&#x5219;&#x662F;&#x5176;&#x53F3;&#x8FB9;&#x754C;&#x4F4D;&#x7F6E;&#x3002;&#x8FD9;&#x6837;&#xFF0C;&#x6211;&#x4EEC;&#x5C31;&#x53EF;&#x4EE5;&#x5229;&#x7528;&#x8FD9;&#x4E2A;&#x5F53;&#x524D;&#x5DF2;&#x77E5;&#x7684;&#x6700;&#x957F;&#x56DE;&#x6587;&#x4E32;&#x6765;&#x5224;&#x65AD;&#x5F53;&#x524D;&#x68C0;&#x6D4B;&#x70B9;<code>i</code>&#x7684;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#x4FE1;&#x606F;&#xFF0C;&#x5177;&#x4F53;&#x7684;&#x601D;&#x8DEF;&#x4E3A;&#xFF1A;</p>
+<ol>
+<li>&#x5229;&#x7528;&#x5F53;&#x524D;&#x68C0;&#x6D4B;&#x70B9;<code>i</code>&#x7684;&#x5BF9;&#x79F0;&#x70B9;<code>j</code>(<code>j</code>= 2 *<code>i</code>- 1&#xFF09;&#x6765;&#x5224;&#x65AD;<code>i</code>&#x7684;&#x56DE;&#x6587;&#x4FE1;&#x606F;&#x3002;&#x56E0;&#x6B64;&#x6B64;&#x65F6;<code>j</code>&#x7684;&#x56DE;&#x6587;&#x4FE1;&#x606F;&#x662F;&#x5DF2;&#x77E5;&#x7684;&#xFF0C;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x5148;&#x68C0;&#x6D4B;&#x8FC7;<code>j</code>&#x7684;&#x56DE;&#x6587;&#x4FE1;&#x606F;&#x4E86;&#x3002;</li>
+<li>&#x6B64;&#x65F6;&#x53C8;&#x5206;&#x4E3A;&#x4E0A;&#x56FE;&#x7684;&#x4E24;&#x79CD;&#x60C5;&#x51B5;&#xFF1A;<ul>
+<li>&#x5F53;&#x4EE5;&#x5BF9;&#x79F0;&#x70B9;<code>j</code>&#x4E3A;&#x4E2D;&#x5FC3;&#x7684;&#x6700;&#x5927;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#xFF08;i.e. <code>p[j]</code>&#xFF09;&#x5C0F;&#x4E8E;&#x4EE5;<code>pivot</code>&#x4E3A;&#x4E2D;&#x5FC3;&#x7684;&#x6700;&#x5927;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#x957F;&#x5EA6;&#xFF08;i.e. <code>max_right</code>&#x7684;&#x5BF9;&#x79F0;&#x70B9;&#x7684;&#x4F4D;&#x7F6E;&#xFF09;&#xFF0C;&#x5219;&#x8BF4;&#x660E;&#x4EE5;&#x5F53;&#x524D;&#x68C0;&#x6D4B;&#x70B9;<code>i</code>&#x4E3A;&#x4E2D;&#x5FC3;&#x7684;&#x6700;&#x5927;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#x957F;&#x5EA6;&#xFF08;i.e. <code>p[i]</code>&#xFF09;&#x4E5F;&#x5C0F;&#x4E8E;<code>max_right</code>&#x3002;&#x5219;&#x53EF;&#x4EE5;&#x63A8;&#x51FA;<code>p[i]=p[j]</code>&#xFF08;&#x56E0;&#x4E3A;&#x4EE5;<code>i</code>&#x548C;<code>j</code>&#x4E3A;&#x4E2D;&#x5FC3;&#x7684;&#x6700;&#x5927;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#x90FD;&#x5305;&#x542B;&#x5728;&#x4E86;&#x4EE5;<code>pivot</code>&#x4E3A;&#x4E2D;&#x5FC3;&#x7684;&#x6700;&#x5927;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#x5F53;&#x4E2D;&#xFF09;&#x3002;</li>
+<li>&#x5F53;&#x4EE5;&#x5BF9;&#x79F0;&#x70B9;<code>j</code>&#x4E3A;&#x4E2D;&#x5FC3;&#x7684;&#x6700;&#x5927;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#xFF08;i.e. <code>p[j]</code>&#xFF09;&#x5927;&#x4E8E;&#x4EE5;<code>pivot</code>&#x4E3A;&#x4E2D;&#x5FC3;&#x7684;&#x6700;&#x5927;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#x957F;&#x5EA6;&#xFF08;i.e. <code>max_right</code>&#x7684;&#x5BF9;&#x79F0;&#x70B9;&#x7684;&#x4F4D;&#x7F6E;&#xFF09;&#xFF0C;&#x6B64;&#x65F6;&#x5219;&#x4E0D;&#x80FD;&#x6839;&#x636E;&#x5BF9;&#x79F0;&#x70B9;<code>j</code>&#x7684;&#x4FE1;&#x606F;&#x76F4;&#x63A5;&#x5F97;&#x5230;<code>i</code>&#x7684;&#x6700;&#x5927;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#x7684;&#x60C5;&#x51B5;&#xFF0C;&#x56E0;&#x4E3A;&#x5BF9;&#x79F0;&#x70B9;<code>j</code>&#x8868;&#x793A;&#x4E86;&#x4EE5;<code>j</code>&#x4E3A;&#x4E2D;&#x5FC3;&#x7684;&#x6700;&#x5927;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#x8D85;&#x8FC7;&#x4E86;&#x4EE5;<code>pivot</code>&#x4E3A;&#x4E2D;&#x5FC3;&#x7684;&#x6700;&#x5927;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#x7684;&#x957F;&#x5EA6;&#xFF08;i.e. <code>p[j] &gt; max_right</code>&#xFF09;&#xFF0C;&#x6240;&#x4EE5;&#x5BF9;&#x4E8E;&#x8D85;&#x8FC7;&#x90E8;&#x5206;&#x7684;&#x5B57;&#x7B26;&#xFF08;&#x5373;&#x56FE;2&#x4E2D;&#x7684;&#x9ED1;&#x8272;&#x90E8;&#x5206;&#xFF09;&#x662F;&#x5426;&#x8FD8;&#x662F;&#x56DE;&#x6587;&#x65E0;&#x6CD5;&#x5224;&#x65AD;&#xFF0C;&#x53EA;&#x80FD;&#x6309;&#x7167;&#x8001;&#x529E;&#x6CD5;&#x4E00;&#x4E2A;&#x4E00;&#x4E2A;&#x6BD4;&#x8F83;&#x3002;&#x4F46;&#x662F;&#xFF0C;&#x6211;&#x4EEC;&#x8FD8;&#x662F;&#x53EF;&#x4EE5;&#x6839;&#x636E;&#x5BF9;&#x79F0;&#x70B9;<code>j</code>&#x77E5;&#x9053;&#x81F3;&#x5C11;<code>i</code>&#x5230;<code>max_right</code>&#x8FD9;&#x6BB5;&#x5B50;&#x4E32;&#x662F;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#xFF08;&#x56E0;&#x4E3A;<code>j</code>&#x5230;<code>max_right</code>&#x7684;&#x5BF9;&#x79F0;&#x70B9;&#x662F;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#xFF09;&#xFF0C;&#x6240;&#x4EE5;&#x53EF;&#x4EE5;&#x5F97;&#x5230;<code>p[i] &gt;= max_right</code>&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x6211;&#x4EEC;&#x4F9D;&#x7136;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x8BA9;<code>p[i]=max_right</code>&#x7136;&#x540E;&#x4ECE;<code>mar_right</code>&#x7684;&#x4F4D;&#x7F6E;&#x5904;&#x5F00;&#x59CB;&#x6309;&#x7167;&#x8001;&#x529E;&#x6CD5;&#x6BD4;&#x8F83;&#x6765;&#x51CF;&#x5C11;&#x8FD0;&#x7B97;&#x6B21;&#x6570;&#x3002;</li>
+</ul>
+</li>
+<li>&#x6700;&#x7EC8;&#xFF0C;Manacher&#x7B97;&#x6CD5;&#x5B9E;&#x73B0;&#x4E86;&#x4E00;&#x6B21;&#x904D;&#x5386;&#x4FBF;&#x80FD;&#x591F;&#x627E;&#x5230;&#x6700;&#x957F;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#x3002;&#x8BE5;&#x65B9;&#x6CD5;&#x7684;&#x5177;&#x4F53;&#x6B65;&#x9AA4;&#x53EF;&#x4EE5;&#x53C2;&#x8003;<a href="https://www.felix021.com/blog/read.php?2040" target="_blank">here</a>&#x3002;</li>
+</ol>
+<p>&#x5B9E;&#x73B0;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> MIN(a,b) ((a)&lt;(b)?(a):(b))</span>
+
+<span class="hljs-comment">//&#x9884;&#x5904;&#x7406;&#x5B57;&#x7B26;&#x4E32;,&#x5C06;s=&quot;babad&quot; -&gt; &quot;$#b#a#b#a#d&quot;&#xFF0C;&#x5C06;&#x6240;&#x6709;&#x7684;&#x8F93;&#x5165;&#x90FD;&#x53D8;&#x4E3A;&#x5947;&#x6570;&#xFF1A;&#x5947;&#x6570;+&#x5076;&#x6570;=&#x5947;&#x6570;</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">preprocess</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *s, <span class="hljs-keyword">char</span> *ss, <span class="hljs-keyword">int</span> len)</span>
+</span>{
+    ss[<span class="hljs-number">0</span>] = <span class="hljs-string">&apos;$&apos;</span>;
+    ss[len<span class="hljs-number">-1</span>] = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>, j=<span class="hljs-number">0</span>; i&lt;len; i++)
+    {
+        <span class="hljs-keyword">if</span>(i&amp;<span class="hljs-number">1</span>) ss[i] = <span class="hljs-string">&apos;#&apos;</span>;
+        <span class="hljs-keyword">else</span> 
+        {
+            ss[i] = s[j];
+            j++;
+        }
+    }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">char</span>* <span class="hljs-title">longestPalindrome</span><span class="hljs-params">(<span class="hljs-keyword">char</span>* s)</span> </span>{
+    <span class="hljs-keyword">int</span> l = <span class="hljs-built_in">strlen</span>(s);
+    <span class="hljs-keyword">if</span>(l&lt;<span class="hljs-number">2</span>)
+        <span class="hljs-keyword">return</span> s;
+    <span class="hljs-keyword">int</span> len = l*<span class="hljs-number">2</span>+<span class="hljs-number">3</span>;
+    <span class="hljs-keyword">char</span> ss[len];
+    preprocess(s, ss, len);
+
+    <span class="hljs-keyword">int</span> p[len*<span class="hljs-number">2</span>], pivot = <span class="hljs-number">0</span>, max_right = <span class="hljs-number">0</span>;
+    <span class="hljs-built_in">memset</span>(p, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span>(p));
+      <span class="hljs-comment">//&#x8BA1;&#x7B97;p[n]:&#x4EE5;&#x6BCF;&#x4E2A;&#x5B57;&#x7B26;&#x4E3A;&#x4E2D;&#x5FC3;&#x7684;&#x6700;&#x957F;&#x56DE;&#x6587;&#x5B50;&#x4E32;&#x957F;&#x5EA6;</span>
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>; i&lt;len<span class="hljs-number">-2</span>; i++)
+    {
+        <span class="hljs-comment">//i&#x4E0D;&#x5728;max_right&#x91CC;&#x9762;&#x65F6;&#x5148;&#x5C06;p[i]&#x7F6E;&#x4E3A;1</span>
+        p[i] = (i&lt;max_right) ? MIN(p[<span class="hljs-number">2</span>*pivot<span class="hljs-number">-1</span>], max_right-i) : <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">while</span>(ss[i+p[i]] == ss[i-p[i]]) p[i]++;
+        <span class="hljs-keyword">if</span>(max_right &lt; i+p[i])
+        {
+            max_right = i+p[i];
+            pivot = i;
+        }
+    }
+      <span class="hljs-comment">//&#x6839;&#x636E;p[i]&#x53D6;&#x51FA;&#x76F8;&#x5E94;&#x7ED3;&#x679C;</span>
+    <span class="hljs-keyword">int</span> max_count = p[<span class="hljs-number">0</span>];
+    <span class="hljs-keyword">int</span> max_idx = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>; i&lt;len<span class="hljs-number">-2</span>; i++)
+    {
+        <span class="hljs-keyword">if</span>(max_count &lt; p[i])
+        {
+            max_count = p[i];
+            max_idx = i;
+        }
+    }
+    <span class="hljs-keyword">char</span> *res = (<span class="hljs-keyword">char</span> *)<span class="hljs-built_in">malloc</span>(max_count+<span class="hljs-number">1</span>);
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=max_idx-max_count+<span class="hljs-number">1</span>, j=<span class="hljs-number">0</span>; i&lt;max_idx+max_count; i++)
+    {
+        <span class="hljs-keyword">if</span>(ss[i] != <span class="hljs-string">&apos;#&apos;</span>)
+        {
+            res[j] = ss[i];
+            j++;
+        }
+    }
+    res[max_count<span class="hljs-number">-1</span>] = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">return</span> res;
+}
+</code></pre>
+<footer class="page-footer"><span class="copyright">&#xA9; AlexZou all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Last Revision Time:
+2019-10-30 05:36:11
+</span></footer>
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+<script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script>
+
+<script type="text/javascript" src="https://raw.githack.com/gzrjzcx/Pointer2SSP/src/md5.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script src="https://raw.githack.com/gzrjzcx/Pointer2SSP/src/gitalk_config.js"></script>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"5. 最长回文子串","level":"1.2.1","depth":2,"next":{"title":"Others","level":"1.3","depth":1,"ref":"","articles":[{"title":"1. 小易的字典","level":"1.3.1","depth":2,"path":"Others/YisDictionary.md","ref":"Others/YisDictionary.md","articles":[]}]},"previous":{"title":"Leetcode","level":"1.2","depth":1,"ref":"","articles":[{"title":"5. 最长回文子串","level":"1.2.1","depth":2,"path":"Leetcode/LongestPalindromicSubstring.md","ref":"Leetcode/LongestPalindromicSubstring.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["katex","github","emphasize","splitter","flexible-alerts","pageview-count","tbfed-pagefooter","donate"],"pluginsConfig":{"tbfed-pagefooter":{"copyright":"&copy AlexZou","modify_label":"Last Revision Time:","modify_format":"YYYY-MM-DD HH:mm:ss"},"emphasize":{},"github":{"url":"https://github.com/gzrjzcx"},"splitter":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"donate":{"alipay":"../res/alipay.png","alipayText":"支付宝打赏","button":"赏","title":"","wechat":"../res/wechat.png","wechatText":"微信打赏"},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"pageview-count":{},"flexible-alerts":{"danger":{"className":"danger","icon":"fa fa-ban","label":"Attention"},"note":{"className":"info","icon":"fa fa-info-circle","label":"Note"},"style":"callout","tip":{"className":"tip","icon":"fa fa-lightbulb-o","label":"Tip"},"warning":{"className":"warning","icon":"fa fa-exclamation-triangle","label":"Warning"}},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Leetcode/LongestPalindromicSubstring.md","mtime":"2019-10-30T05:36:11.253Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-10-30T05:36:58.356Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-flexible-alerts/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-pageview-count/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-donate/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

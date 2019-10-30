@@ -1,0 +1,27 @@
+language: node_js
+node_js:
+  - "10"
+cache: npm
+
+notifications:
+  email: false
+
+install:
+  - npm install -g gitbook-cli
+  - gitbook install
+
+script:
+  - gitbook build
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $TOKEN  # Set in the settings page of your repository, as a secure variable
+  local-dir: ./_book/
+  verbose: true
+  on:
+    branch: src
+
+branches:
+  only:
+    - src
