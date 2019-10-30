@@ -6,7 +6,6 @@
     	"flexible-alerts",
     	"pageview-count",
     	"tbfed-pagefooter",
-    	"disqus",
     	"donate"
     ],
 
@@ -18,9 +17,6 @@
           "copyright":"&copy AlexZou",
           "modify_label": "Last Revision Time:",
           "modify_format": "YYYY-MM-DD HH:mm:ss"
-    },
-    "disqus": {
-        "shortName": "hellscript"
     },
     "donate": {
         "wechat": "../res/wechat.png",
