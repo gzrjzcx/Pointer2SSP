@@ -23,8 +23,8 @@
         "shortName": "hellscript"
     },
     "donate": {
-        "wechat": "res/wechat.png",
-        "alipay": "res/alipay.png",
+        "wechat": "../res/wechat.png",
+        "alipay": "../res/alipay.png",
         "title": "",
         "button": "赏",
         "alipayText": "支付宝打赏",
